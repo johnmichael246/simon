@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/simon.css">
+    <title>Simon Says</title>
+     <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"> </script>
+</head>
+<body class="container background">
+    <h1 class = "top"> Simon Says </h1>
+    <div class="pointer">
+        <div class="row margin1">
+            <div id = "hiScore" class="scores col-xs-6" >Highscore__</div>
+            <div id = "score" class="scores col-xs-6">Score__</div>
+        </div>
+        <div id="Insert"> </div>
+        <div class="row center">
+            <div id = "blue"class="col-xs-2 col-xs-offset-5 blue circle clicks">Blue</div>
+        </div>
+        <div class="col-xs-9">
+            <div id="purple" class="col-xs-3 purple circle clicks">Purple</div>
+            <button id="start-btn" type="button">Start!</button>
+            <div id="yellow" class="col-xs-3 yellow circle clicks">Yellow</div>  
+        </div>
+            <div class="row center col-xs-9">
+            <div id = "green"class="col-xs-1 green col-xs-offset-4 circle clicks">Green</div>
+            <div id = "red" class="col-xs-1 red col-xs-offset-3 circle clicks">Red</div>
+        </div>
+    </div>
+    <footer>
+        <p></p>
+    </footer>
+    <script src = "js/bootstrap.js"></script>
+    <script src ="js/simon.js"></script>
+</body>
+</html>

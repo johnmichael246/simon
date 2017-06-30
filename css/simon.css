@@ -1,0 +1,66 @@
+body {
+    min-width:900px;
+}
+
+.yellow {
+    background-color: yellow;
+    border-radius:90px;
+    border-bottom: 50px;
+}
+
+.red {
+    background-color: red;
+    border-radius: 90px;
+}
+.green {
+    background-color: green;
+    border-radius: 90px;
+}
+
+.purple {
+    background-color: purple;
+    border-radius: 90px;
+    margin-bottom: 50px;
+}
+
+.blue {
+    background-color: blue;
+    border-radius: 90px;
+    margin-bottom: 50px;
+}
+
+.top {
+    text-align: center;
+    font-weight: 800;
+    padding-bottom: 30px;
+    background-color: red;
+    margin:0 auto; 
+}
+
+.scores {
+    text-align: left;
+    font-size:20px;
+    margin-bottom: 40px;
+    padding-top:30px;
+    font-weight: 650;
+    background-color:black;
+    margin: 0 auto;
+}
+
+.circle {
+    height:150px;
+    width:150px;
+    border-radius: 50%;
+}
+
+.centered {
+    text-align: center;
+}
+
+.center {
+    margin:auto;
+}
+
+.background {
+    background:radial-gradient(circle, lightgoldenrodyellow, lightcyan);
+}
