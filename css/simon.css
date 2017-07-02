@@ -1,40 +1,48 @@
 body {
     min-width:900px;
+    margin: 0 auto;
 }
 
 .yellow {
     background-color: yellow;
     border-radius:90px;
     border-bottom: 50px;
+    box-shadow: 0 0 5px 2px rgba(0,0,0,.35)
 }
 
 .red {
     background-color: red;
     border-radius: 90px;
+    box-shadow: 0 0 5px 2px rgba(0,0,0,.35)
 }
 .green {
     background-color: green;
     border-radius: 90px;
+    box-shadow: 0 0 5px 2px rgba(0,0,0,.35)
 }
 
 .purple {
     background-color: purple;
     border-radius: 90px;
     margin-bottom: 50px;
+    box-shadow: 0 0 5px 2px rgba(0,0,0,.35)
 }
 
 .blue {
     background-color: blue;
     border-radius: 90px;
     margin-bottom: 50px;
+    box-shadow: 0 0 5px 2px rgba(0,0,0,.35);
+    margin: auto;
 }
 
-.top {
+.title {
     text-align: center;
     font-weight: 800;
     padding-bottom: 30px;
     background-color: red;
     margin:0 auto; 
+    color:whitesmoke;
 }
 
 .scores {
@@ -45,22 +53,22 @@ body {
     font-weight: 650;
     background-color:black;
     margin: 0 auto;
+    color: whitesmoke;
 }
 
 .circle {
     height:150px;
     width:150px;
     border-radius: 50%;
+    opacity: .5;
+    /*transition:color 1s ease-out;*/
+    
 }
 
 .centered {
     text-align: center;
 }
 
-.center {
-    margin:auto;
-}
-
 .background {
-    background:radial-gradient(circle, lightgoldenrodyellow, lightcyan);
+    background:radial-gradient(circle, black, lightcyan);
 }
