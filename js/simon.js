@@ -18,8 +18,8 @@ function reInitialize() {
     player = [];
     lose = false;
     score = 0;
-    hiScore = 0;
-    counter = 0;
+    hiScore =// if localStorage.getItem("hiScore") < currentScore -> localStorage.setItem
+     counter = 0;
     countDown();
     render();
 };
@@ -49,8 +49,10 @@ function simonsTurn() {
     var startTimer = 0;
     counter += 1;
     simon.push(getRandomInt());
-    simon.forEach(function(elem) {
+    simon.forEach(function(elem, index) {
         setTimeout(function() {
+            var audio = document.getElementById(`audio${elem}`);
+            audio.play();
             $(`#${elem}`).css({opacity:1})
         }, startTimer)
         startTimer +=1000;
@@ -95,6 +97,8 @@ function colorSelect() {
     }
     player.push((`${this.id}`));
     $(this).css({opacity: 1});
+    audio = document.getElementById(`audio${this.id}`);
+    audio.play();
     setTimeout(function() {
         $(".circle").css({opacity: .5})
     },750)
@@ -108,6 +112,7 @@ function gameOver() {
     document.getElementById('start-btn').innerText = 'Try Again?'
     $("#start-btn").on('click', reInitialize)
 }
+
 function countDown() {
     var count = 3;
     $("#start-btn").html("Get Ready!")
