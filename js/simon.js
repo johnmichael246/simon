@@ -1,60 +1,28 @@
 
 /*----- constants -----*/
-var Colors = ["blue","purple","yellow", "green", "red"];
+// var Colors = ["blue","purple","yellow", "green", "red"];
 /*----- app's state (variables) -----*/
-var simon;
-var player;
-var lose;
-var score;
-var hiScore;
-var timer;
-   
-/*----- event listeners -----*/
+var simon = [];
+var player = [];
+var lose = false;
+var score = 0;
+var hiScore = 0;
+var counter = 1; 
 
-$(".circle").on('click', function(event) {
-    player.push((`${this.id}`));
-    console.log(`${this.id}`);
-    $(this).css({opacity: 1});
-    setTimeout(function() {
-        $(".circle").css({opacity: .5})
-    },1000)
-});
+/*----- event listeners -----*/
+// $(".circle").on('click', colorSelect)    
+$("#start-btn").on('click', countDown)
 /*----- functions -----*/
-initialize();
-function initialize() {
+function reInitialize() {
     simon = [];
     player = [];
     lose = false;
     score = 0;
     hiScore = 0;
-    timer = 1000;
-    $("#start-btn").one('click', function() {
-        var count = 3;
-        console.log("get ready!")
-        $("#message").html("Get Ready!")
-        var countdown = setInterval(function(){
-            console.log(count)
-            $("#message").html(count)
-            count -= 1;
-            if (count < 0) {
-                clearInterval(countdown)
-                $("#message").html("game on")
-                console.log("go!");
-            }
-        },1000)
-
-    })
+    counter = 0;
+    countDown();
+    render();
 };
-
-// $(".circle").on('click', function(event) {
-//     simon.push(getRandomInt());
-//     console.log(event.target.id);
-//     $(`#${event.target.id}`).css({opacity: 1});
-//     setTimeout(function() {
-//         $(".circle").css({opacity: .5})
-//     },1000)
-// })
-
 
 function getRandomInt() {
     var min = 0;
@@ -63,23 +31,97 @@ function getRandomInt() {
 };
 
 function render() {
+    player =[];
     renderScore();
-    renderHiScore();
+    renderCount();
 }
 
 function renderScore () {
-    document.getElementById('score').innerText = score
+    document.getElementById('score').innerText = `Score ${score}`;
+    document.getElementById('hiScore').innerText = `High Score ${hiScore}`;
 }
-function renderHiScore() {
-    document.getElementById('hiScore').innerText = hiScore
+function renderCount() {
+        document.getElementById('count').innerText = `Round ${counter}`;
 }
 
 function simonsTurn() {
+    var endTimer = 750;
+    var startTimer = 0;
+    counter += 1;
     simon.push(getRandomInt());
-    simon.forEach(function(elem,) {
-        setTimeout($(`#${elem}`).css({opacity:1}))
-    },timer)
-        setTimeout($(`#${elem}`).css({opacity:.5}), timer+=500)
+    simon.forEach(function(elem) {
+        setTimeout(function() {
+            $(`#${elem}`).css({opacity:1})
+        }, startTimer)
+        startTimer +=1000;
+        setTimeout(function() {
+            $(`#${elem}`).css({opacity:.6})
+        }, endTimer)
+        endTimer += 750
+    })
+    startTimer = 0;
+    endTimer = 750;
 };
 
+function playerTurn() {
+    player.forEach(function(colorIdx, index) {
+        if (player[index] != simon[index]) { 
+            return gameOver();
+        }
+    })
+    if (player.length < simon.length) {
+        return;
+    }
+    if (lose === false) {
+        scoring();
+        render();
+        setTimeout(function() {
+            simonsTurn();
+        }, 1500)       
+    }
+};
+
+function scoring() {
+    score += 10
+    if (hiScore < score) {
+        hiScore = score;
+        localStorage.setItem("hiScore", score);
+    }
+};
+
+function colorSelect() {
+    if (lose === true) {
+        return
+    }
+    player.push((`${this.id}`));
+    $(this).css({opacity: 1});
+    setTimeout(function() {
+        $(".circle").css({opacity: .5})
+    },750)
+    playerTurn();      
+};
+
+function gameOver() {
+    lose = true
+    $("circle").off('click');
+    alert("game over!");
+    document.getElementById('start-btn').innerText = 'Try Again?'
+    $("#start-btn").on('click', reInitialize)
+}
+function countDown() {
+    var count = 3;
+    $("#start-btn").html("Get Ready!")
+    var countdown = setInterval(function(){
+        $("#start-btn").html(count)
+        count -= 1;
+        if (count < 0) {
+            clearInterval(countdown)
+            $("#start-btn").html("Game On")
+            renderCount();
+            simonsTurn();
+        }
+    },1000)
+    $('#start-btn').off('click');
+    $(".circle").on('click', colorSelect)
+};
 /*----- cached element references -----*/

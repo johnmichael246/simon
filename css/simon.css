@@ -31,18 +31,22 @@ body {
 .blue {
     background-color: blue;
     border-radius: 90px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     box-shadow: 0 0 5px 2px rgba(0,0,0,.35);
-    margin: auto;
+    margin-left: 44.33333333%;
+    padding-bottom: 0px;
 }
 
 .title {
     text-align: center;
     font-weight: 800;
-    padding-bottom: 30px;
-    background-color: red;
+    padding-bottom: 15px;
+    background-color:#a239ca;
     margin:0 auto; 
     color:whitesmoke;
+    font-family:'Imprima', serif;
+    text-shadow: 2px 2px black;
+    text-transform: uppercase;
 }
 
 .scores {
@@ -51,9 +55,11 @@ body {
     margin-bottom: 40px;
     padding-top:30px;
     font-weight: 650;
-    background-color:black;
-    margin: 0 auto;
+    background-color:grey;
     color: whitesmoke;
+    text-align: center;
+    font-family:'Bree Serif', serif;
+    text-shadow:2px 1px black;
 }
 
 .circle {
@@ -65,10 +71,23 @@ body {
     
 }
 
+.circle.lit {
+    opacity:1;
+}
+
 .centered {
     text-align: center;
 }
 
 .background {
-    background:radial-gradient(circle, black, lightcyan);
+    background:radial-gradient(circle,grey,#e7dfdd, #0e0b16);
+}
+
+.startbutton {
+    margin-top: 30px;
+    padding: 0 50px;
+    color: whitesmoke;
+}
+#count {
+    text-align: center;
 }
