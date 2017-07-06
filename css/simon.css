@@ -30,8 +30,8 @@ body {
 .title {
     text-align: center;
     font-weight: 800;
-    padding-bottom: 15px;
-    background-color:#a239ca;
+    padding-bottom: 40px;
+    background: linear-gradient(#a239ca, grey);
     margin:0 auto; 
     color:whitesmoke;
     font-family:'Imprima', serif;
@@ -43,9 +43,8 @@ body {
     text-align: left;
     font-size:20px;
     margin-bottom: 40px;
-    padding-top:30px;
     font-weight: 650;
-    background-color:grey;
+    background: linear-gradient(grey, grey);
     color: whitesmoke;
     text-align: center;
     font-family:'Bree Serif', serif;
@@ -58,8 +57,7 @@ body {
     height:150px;
     width:150px;
     border-radius: 50%;
-    opacity: .5;
-    
+    opacity: .5;  
 }
 
 .background {
