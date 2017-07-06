@@ -1,6 +1,5 @@
 
 /*----- constants -----*/
-// var Colors = ["blue","purple","yellow", "green", "red"];
 /*----- app's state (variables) -----*/
 var simon = [];
 var player = [];
@@ -123,7 +122,8 @@ function colorSelect() {
 function gameOver() {
     lose = true
     $("circle").off('click');
-    alert("game over!");
+    // alert("game over!");
+    loseFlash();
     document.getElementById('start-btn').innerText = 'Try Again?'
     $("#start-btn").on('click', reInitialize)
 }
@@ -147,3 +147,26 @@ function countDown() {
     $(".circle").on('click', colorSelect)
 };
 /*----- cached element references -----*/
+
+function loseFlash() {
+    var loseAnimate = 5
+    time1 = 0;
+    time2 =500;
+    var loseColors = setInterval(function() {
+        setTimeout(function() {
+            $(`.circle`).css({opacity:1})
+        }, time1)
+        time1 += 500;
+        setTimeout(function() {
+            $(`.circle`).css({opacity:.6})
+        }, time2)
+        time2 +=650
+        loseAnimate -= 1;
+        if (loseAnimate < 0) {
+            clearInterval(loseColors)
+        }
+    })
+    time1 = 0;
+    time2 = 500;
+
+};
