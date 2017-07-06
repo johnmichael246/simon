@@ -1,4 +1,3 @@
-
 /*----- constants -----*/
 /*----- app's state (variables) -----*/
 var simon = [];
@@ -8,15 +7,12 @@ var score = 0;
 var hiScore = (localStorage.getItem("hiScore", score));
 $('LS').html(hiScore)
 var counter = 1;
-var sound0 = "beep0";
-var sound1 = "beep1";
-var sound2 = "beep2";
-var sound3 = "beep3";
-var sound4 = "beep4";
+var disable = 750;
 render();
 
 /*----- event listeners -----*/  
 $("#start-btn").on('click', countDown)
+$(".circle").on('click', colorSelect)
 /*----- functions -----*/
 function reInitialize() {
     simon = [];
@@ -28,21 +24,6 @@ function reInitialize() {
     countDown();
     render();
 };
-
-function loadsound() {
-    createjs.Sound.registerSound("sound/simon_sound0.mp3", sound0)
-    createjs.Sound.registerSound("sound/simon_sound1.mp3", sound1)
-    createjs.Sound.registerSound("sound/simon_sound2.mp3", sound2)
-    createjs.Sound.registerSound("sound/simon_sound3.mp3", sound3)
-    createjs.Sound.registerSound("sound/simon_sound4.mp3", sound4)
-}
-
-function getRandomInt() {
-    var min = 0;
-    var max = 4;
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-
 function render() {
     player =[];
     renderScore();
@@ -57,11 +38,16 @@ function renderCount() {
         document.getElementById('count').innerText = `Round ${counter}`;
 }
 
+function getRandomInt() {
+    var min = 0;
+    var max = 4;
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+};
 function simonsTurn() {
-    $("circle").off('click');
     var endTimer = 750;
     var startTimer = 0;
     counter += 1;
+    disableClick();
     simon.push(getRandomInt());
     simon.forEach(function(elem, index) {
         setTimeout(function() {
@@ -78,7 +64,19 @@ function simonsTurn() {
     startTimer = 0;
     endTimer = 750;
 };
-
+function colorSelect() {
+    if (lose === true) {
+        return
+    }
+    player.push((`${this.id}`));
+    $(this).css({opacity: 1});
+    audio = document.getElementById(`audio${this.id}`);
+    audio.play();
+    setTimeout(function() {
+        $(".circle").css({opacity: .5})
+    },750)
+    playerTurn();      
+};
 function playerTurn() {
     player.forEach(function(colorIdx, index) {
         if (player[index] != simon[index]) { 
@@ -96,7 +94,6 @@ function playerTurn() {
         }, 1500)       
     }
 };
-
 function scoring() {
     score += 10
     if (hiScore < score) {
@@ -104,35 +101,11 @@ function scoring() {
         window.localStorage.setItem("hiScore", score);
     }
 };
-
-function colorSelect() {
-    if (lose === true) {
-        return
-    }
-    player.push((`${this.id}`));
-    $(this).css({opacity: 1});
-    audio = document.getElementById(`audio${this.id}`);
-    audio.play();
-    setTimeout(function() {
-        $(".circle").css({opacity: .5})
-    },750)
-    playerTurn();      
-};
-
-function gameOver() {
-    lose = true
-    $("circle").off('click');
-    // alert("game over!");
-    loseFlash();
-    document.getElementById('start-btn').innerText = 'Try Again?'
-    $("#start-btn").on('click', reInitialize)
-}
-
 function countDown() {
     var count = 3;
-    $("#start-btn").html("Get Ready!")
+    $("#start-btn").html("Ready?")
     var countdown = setInterval(function(){
-        var countSound = document.getElementById('beep')
+        var countSound = document.getElementById('beeper')
         countSound.play();
         $("#start-btn").html(count)
         count -= 1;
@@ -144,23 +117,29 @@ function countDown() {
         }
     },1000)
     $('#start-btn').off('click');
-    $(".circle").on('click', colorSelect)
 };
-/*----- cached element references -----*/
-
+function gameOver() {
+    lose = true
+    $("circle").off('click');
+    loseFlash();
+    document.getElementById('start-btn').innerText = 'Try Again?'
+    $("#start-btn").on('click', reInitialize)
+}
 function loseFlash() {
-    var loseAnimate = 5
+    var loseAnimate = 3
     time1 = 0;
-    time2 =500;
+    time2 =750;
     var loseColors = setInterval(function() {
         setTimeout(function() {
+            var endBeep = document.getElementById("losebeep")
+            endBeep.play()
             $(`.circle`).css({opacity:1})
         }, time1)
-        time1 += 500;
+        time1 += 750;
         setTimeout(function() {
             $(`.circle`).css({opacity:.6})
         }, time2)
-        time2 +=650
+        time2 +=750
         loseAnimate -= 1;
         if (loseAnimate < 0) {
             clearInterval(loseColors)
@@ -168,5 +147,12 @@ function loseFlash() {
     })
     time1 = 0;
     time2 = 500;
-
 };
+function disableClick() {
+    $('.circle').off('click')
+    setTimeout(function(){
+        $('.circle').on('click', colorSelect)
+    }, disable)
+    disable += 750;
+}
+/*----- cached element references -----*/
