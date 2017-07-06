@@ -13,27 +13,28 @@
         src="https://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous"> </script>
+    <script src="https://code.createjs.com/soundjs-0.6.2.min.js"></script>
 </head>
-<body class="background">
+<body onload="loadSound();" class="background">
     <h1 class = "title"> Simon Says </h1>
     <div class="pointer">
         <div class="row">
-            <div id = "hiScore" class="scores four columns" >Highscore__</div>
+            <div id = "hiScore" class="scores four columns" >Highscore__<span id=LS></span></div>
             <div id = "count" class = "scores four columns"> Round 0 </div>
             <div id = "score" class="scores">Score__</div>
         </div>
         <div id="Insert" class="row1"> </div>
         <div class="center">
-            <div id = "0"class=" blue circle">Blue</div>
+            <div id = "0"class=" blue circle"></div>
         </div>
         <div class="row twelve columns">
-            <div id="1" class="offset-by-three columns purple circle">Purple</div>
-            <button id="start-btn" type="button" class="offset-by-one column one column startbutton">Start!</button>
-            <div id="2" class="offset-by-one columns yellow circle">Yellow</div>  
+            <div id="1" class="offset-by-three columns purple circle"></div>
+            <button id="start-btn" type="button" class="offset-by-one column one column startbutton">GO</button>
+            <div id="2" class="offset-by-one columns yellow circle"></div>  
         </div>
             <div class="row twelve columns">
-            <div id = "3"class="green offset-by-one-third columns circle">Green</div>
-            <div id = "4" class="red offset-by-one columns circle">Red</div>
+            <div id = "3"class="green offset-by-one-third columns circle"></div>
+            <div id = "4" class="red offset-by-one columns circle"></div>
         </div>
     </div>
     <audio id="audio0"src="sound/simon_sound0.mp3" type="audio/mpeg"></audio>
@@ -41,6 +42,7 @@
     <audio id="audio2"src="sound/simon_sound2.mp3" type="audio/mpeg"></audio>
     <audio id="audio3"src="sound/simon_sound3.mp3" type="audio/mpeg"></audio>
     <audio id="audio4"src="sound/simon_sound4.mp3" type="audio/mpeg"></audio>
+    <audio id="beep" src="sound/beep.mp3" type="audio/mpeg"></audio>
     <footer>
         <p></p>
     </footer>

@@ -6,11 +6,17 @@ var simon = [];
 var player = [];
 var lose = false;
 var score = 0;
-var hiScore = 0;
-var counter = 1; 
+var hiScore = (localStorage.getItem("hiScore", score));
+$('LS').html(hiScore)
+var counter = 1;
+var sound0 = "beep0";
+var sound1 = "beep1";
+var sound2 = "beep2";
+var sound3 = "beep3";
+var sound4 = "beep4";
+render();
 
-/*----- event listeners -----*/
-// $(".circle").on('click', colorSelect)    
+/*----- event listeners -----*/  
 $("#start-btn").on('click', countDown)
 /*----- functions -----*/
 function reInitialize() {
@@ -18,11 +24,19 @@ function reInitialize() {
     player = [];
     lose = false;
     score = 0;
-    hiScore =// if localStorage.getItem("hiScore") < currentScore -> localStorage.setItem
+    hiScore = localStorage.getItem("hiScore",score)
      counter = 0;
     countDown();
     render();
 };
+
+function loadsound() {
+    createjs.Sound.registerSound("sound/simon_sound0.mp3", sound0)
+    createjs.Sound.registerSound("sound/simon_sound1.mp3", sound1)
+    createjs.Sound.registerSound("sound/simon_sound2.mp3", sound2)
+    createjs.Sound.registerSound("sound/simon_sound3.mp3", sound3)
+    createjs.Sound.registerSound("sound/simon_sound4.mp3", sound4)
+}
 
 function getRandomInt() {
     var min = 0;
@@ -45,6 +59,7 @@ function renderCount() {
 }
 
 function simonsTurn() {
+    $("circle").off('click');
     var endTimer = 750;
     var startTimer = 0;
     counter += 1;
@@ -55,7 +70,7 @@ function simonsTurn() {
             audio.play();
             $(`#${elem}`).css({opacity:1})
         }, startTimer)
-        startTimer +=1000;
+        startTimer +=750;
         setTimeout(function() {
             $(`#${elem}`).css({opacity:.6})
         }, endTimer)
@@ -87,7 +102,7 @@ function scoring() {
     score += 10
     if (hiScore < score) {
         hiScore = score;
-        localStorage.setItem("hiScore", score);
+        window.localStorage.setItem("hiScore", score);
     }
 };
 
@@ -117,6 +132,8 @@ function countDown() {
     var count = 3;
     $("#start-btn").html("Get Ready!")
     var countdown = setInterval(function(){
+        var countSound = document.getElementById('beep')
+        countSound.play();
         $("#start-btn").html(count)
         count -= 1;
         if (count < 0) {
