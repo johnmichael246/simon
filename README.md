@@ -1,4 +1,4 @@
-**Simon Says, Readme!**
+###Simon Says, Readme!###
 =======================
 **1. What is Simon?**
 
@@ -21,7 +21,7 @@ Two things of note;
 To launch the game, click 
 [Here] (https://johnmichael246.github.io/simon/) to open the page with the Simon loaded and ready to go! 
 
-**4.Next Steps**
+**4.Next Steps**   
 There are to additional features that I would like to implement in the future. The first is fixing the problem with the sound not playing when Simon selects the same div target a second time.
 
-The second is to set a timer for the player turn function; while it is the players turn, there should be a timer that if the player does not select a cell before the time is up, the gameover is triggered. the timer will reset fter every click, and after every turn the time available to move will decrease as well.
+The second is to set a decrementing timer for the player turn function; while it is the players turn, there should be a timer that if the player does not select a cell before the time is up, the gameover is triggered. the timer will reset fter every click, and after every turn the time available to move will decrease as well.
