@@ -1,5 +1,5 @@
 ### SIMON SAYS, README!
-=======================
+===
 **1. WHAT IS SIMON?**
 
 Simon is originally an electronic game of memory skill invented by Ralph H. Baer and Howard J. Morrison, with the original programming done by by Lenny Cope. The device creates a series of tones and lights and requires a user to repeat the series. 
