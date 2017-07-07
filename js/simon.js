@@ -3,7 +3,7 @@
 var simon = [];
 var player = [];
 var lose = false;
-var tickTock ;
+var tickTock;
 var score = 0;
 var hiScore = localStorage.getItem("hiScore", score);
 $('LS').html(hiScore)
@@ -23,7 +23,6 @@ function reInitialize() {
     tickTock;
     hiScore = localStorage.getItem("hiScore",score)
      counter = 1;
-     click = 0;
      disable = 750;
     countDown();
     render();
@@ -160,6 +159,11 @@ function loseFlash() {
     time1 = 0;
     time2 = 500;
 };
+
+function timesUp() {
+     gameOver();
+ }
+
 function disableClick() {
     $('.circle').off('click')
     setTimeout(function(){
