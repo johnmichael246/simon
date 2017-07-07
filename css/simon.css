@@ -37,6 +37,7 @@ body {
     font-family:'Imprima', serif;
     text-shadow: 2px 2px black;
     text-transform: uppercase;
+    opacity: .6;
 }
 
 .scores {
@@ -44,13 +45,10 @@ body {
     font-size:20px;
     margin-bottom: 40px;
     font-weight: 650;
-    background: linear-gradient(grey, grey);
     color: whitesmoke;
     text-align: center;
     font-family:'Bree Serif', serif;
     text-shadow:2px 1px black;
-    border-bottom-left-radius: 25px;
-    border-bottom-right-radius: 25px;
 }
 
 .circle {
