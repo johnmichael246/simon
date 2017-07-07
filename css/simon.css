@@ -49,14 +49,15 @@ body {
     color: whitesmoke;
     text-align: center;
     font-family:'Bree Serif', serif;
-    text-shadow:2px 1px black;
 }
 
 .circle {
     height:150px;
     width:150px;
     border-radius: 50%;
-    opacity: .6;  
+    opacity: .6;
+    text-shadow: 0 0 3px #000000;
+    box-shadow:0 0 20px black;
 }
 
 .startbutton {

@@ -2,7 +2,7 @@
 /*----- app's state (variables) -----*/
 var simon = [];
 var player = [];
-var lose = false;
+var lose =true;
 var tickTock;
 var score = 0;
 var hiScore = localStorage.getItem("hiScore", score);
@@ -123,6 +123,7 @@ function countDown() {
         if (count < 0) {
             clearInterval(countdown)
             $("#start-btn").html("Go")
+            lose = false;
             renderCount();
             simonsTurn();
         }
