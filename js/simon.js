@@ -3,8 +3,9 @@
 var simon = [];
 var player = [];
 var lose = false;
+var tickTock ;
 var score = 0;
-var hiScore = (localStorage.getItem("hiScore", score));
+var hiScore = localStorage.getItem("hiScore", score);
 $('LS').html(hiScore)
 var counter = 1;
 var disable = 750;
@@ -19,8 +20,11 @@ function reInitialize() {
     player = [];
     lose = false;
     score = 0;
+    tickTock;
     hiScore = localStorage.getItem("hiScore",score)
-     counter = 0;
+     counter = 1;
+     click = 0;
+     disable = 750;
     countDown();
     render();
 };
@@ -55,16 +59,23 @@ function simonsTurn() {
             audio.play();
             $(`#${elem}`).css({opacity:1})
         }, startTimer)
-        startTimer +=750;
+        startTimer +=900;
         setTimeout(function() {
-            $(`#${elem}`).css({opacity:.6})
+            $(`#${elem}`).css({opacity:.5})
         }, endTimer)
         endTimer += 750
+        if (index === simon.length-1) tickTock = setTimeout(timesUp, endTimer + 3000);
     })
     startTimer = 0;
     endTimer = 750;
-};
+}
+
+function timesUp() {
+    gameOver();
+}
+
 function colorSelect() {
+    clearTimeout(tickTock);
     if (lose === true) {
         return
     }
@@ -75,7 +86,7 @@ function colorSelect() {
     setTimeout(function() {
         $(".circle").css({opacity: .5})
     },750)
-    playerTurn();      
+    playerTurn();    
 };
 function playerTurn() {
     player.forEach(function(colorIdx, index) {
@@ -84,6 +95,7 @@ function playerTurn() {
         }
     })
     if (player.length < simon.length) {
+        tickTock = setTimeout(timesUp, 3000);
         return;
     }
     if (lose === false) {
@@ -91,7 +103,7 @@ function playerTurn() {
         render();
         setTimeout(function() {
             simonsTurn();
-        }, 1500)       
+        }, 1500);
     }
 };
 function scoring() {
@@ -111,7 +123,7 @@ function countDown() {
         count -= 1;
         if (count < 0) {
             clearInterval(countdown)
-            $("#start-btn").html("Game On")
+            $("#start-btn").html("Go")
             renderCount();
             simonsTurn();
         }
@@ -122,11 +134,11 @@ function gameOver() {
     lose = true
     $("circle").off('click');
     loseFlash();
-    document.getElementById('start-btn').innerText = 'Try Again?'
+    document.getElementById('start-btn').innerText = 'Again?'
     $("#start-btn").on('click', reInitialize)
 }
 function loseFlash() {
-    var loseAnimate = 3
+    var loseAnimate = 2
     time1 = 0;
     time2 =750;
     var loseColors = setInterval(function() {
