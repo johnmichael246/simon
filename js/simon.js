@@ -22,8 +22,8 @@ function reInitialize() {
     score = 0;
     tickTock;
     hiScore = localStorage.getItem("hiScore",score)
-     counter = 1;
-     disable = 750;
+    counter = 1;
+    disable = 750;
     countDown();
     render();
 };
@@ -58,9 +58,9 @@ function simonsTurn() {
             audio.play();
             $(`#${elem}`).css({opacity:1})
         }, startTimer)
-        startTimer +=900;
+        startTimer +=800;
         setTimeout(function() {
-            $(`#${elem}`).css({opacity:.5})
+            $(`#${elem}`).css({opacity:.6})
         }, endTimer)
         endTimer += 750
         if (index === simon.length-1) tickTock = setTimeout(timesUp, endTimer + 3000);
@@ -83,7 +83,7 @@ function colorSelect() {
     audio = document.getElementById(`audio${this.id}`);
     audio.play();
     setTimeout(function() {
-        $(".circle").css({opacity: .5})
+        $(".circle").css({opacity: .6})
     },750)
     playerTurn();    
 };
@@ -146,7 +146,7 @@ function loseFlash() {
             endBeep.play()
             $(`.circle`).css({opacity:1})
         }, time1)
-        time1 += 750;
+        time1 += 800;
         setTimeout(function() {
             $(`.circle`).css({opacity:.6})
         }, time2)
@@ -157,7 +157,7 @@ function loseFlash() {
         }
     })
     time1 = 0;
-    time2 = 500;
+    time2 = 750;
 };
 
 function timesUp() {
