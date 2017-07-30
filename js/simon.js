@@ -1,4 +1,6 @@
 /*----- constants -----*/
+$('.tap-target').tapTarget('open');
+$('.tap-target').tapTarget('close');
 /*----- app's state (variables) -----*/
 var simon = [];
 var player = [];
@@ -56,11 +58,11 @@ function simonsTurn() {
         setTimeout(function() {
             var audio = document.getElementById(`audio${elem}`);
             audio.play();
-            $(`#${elem}`).css({opacity:1})
+            $(`#${elem}`).css({opacity:1}).addClass('pulse')
         }, startTimer)
         startTimer +=800;
         setTimeout(function() {
-            $(`#${elem}`).css({opacity:.6})
+            $(`#${elem}`).css({opacity:.6}).removeClass('pulse')
         }, endTimer)
         endTimer += 750
         if (index === simon.length-1) tickTock = setTimeout(timesUp, endTimer + 3000);
@@ -88,6 +90,8 @@ function colorSelect() {
     playerTurn();    
 };
 function playerTurn() {
+    console.log('player = ', player)
+    console.log('simon = ', simon)
     player.forEach(function(colorIdx, index) {
         if (player[index] != simon[index]) { 
             return gameOver();
@@ -145,11 +149,11 @@ function loseFlash() {
         setTimeout(function() {
             var endBeep = document.getElementById("losebeep")
             endBeep.play()
-            $(`.circle`).css({opacity:1})
+            $(`.circle`).css({opacity:1}).removeClass('scale-in').addClass('scale-out pulse')
         }, time1)
         time1 += 800;
         setTimeout(function() {
-            $(`.circle`).css({opacity:.6})
+            $(`.circle`).css({opacity:.6}).removeClass('scale-out pulse').addClass('scale-in')
         }, time2)
         time2 +=750
         loseAnimate -= 1;

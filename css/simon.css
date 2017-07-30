@@ -1,33 +1,16 @@
 body {
     min-width:900px;
     margin: 0 auto;
-    background:radial-gradient(circle,grey,#e7dfdd, #0e0b16);
+    background: black;
 }
 
 .yellow,.red,.green,.blue,.purple {
     border-radius:90px;
-    box-shadow: 3px 3px 3px black;
+    box-shadow: 5px 5px 5px white;
 }
-.yellow {
-    background-color: yellow;
+.bottom-margin {
+    margin-bottom:2%;
 }
-.red {
-    background-color: red;
-}
-.green {
-    background-color: green;
-}
-.purple {
-    background-color: purple;
-    margin-bottom: 50px;
-}
-.blue {
-    background-color: blue;
-    margin-bottom: 20px;
-    margin-left: 44.33333333%;
-    padding-bottom: 0px;
-}
-
 .title {
     text-align: center;
     font-weight: 800;
@@ -38,7 +21,7 @@ body {
     font-family:'Imprima', serif;
     text-shadow: 2px 2px black;
     text-transform: uppercase;
-    opacity: .6;
+    /*opacity: .6;*/
 }
 
 .scores {
@@ -57,7 +40,7 @@ body {
     border-radius: 50%;
     opacity: .6;
     text-shadow: 0 0 3px #000000;
-    box-shadow:0 0 20px black;
+    box-shadow:3px 5px 50px grey;
 }
 
 .startbutton {
