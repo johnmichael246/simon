@@ -3,7 +3,6 @@ body {
     margin: 0 auto;
     background: black;
 }
-
 .yellow,.red,.green,.blue,.purple {
     border-radius:90px;
     box-shadow: 5px 5px 5px white;
@@ -21,9 +20,7 @@ body {
     font-family:'Imprima', serif;
     text-shadow: 2px 2px black;
     text-transform: uppercase;
-    /*opacity: .6;*/
 }
-
 .scores {
     text-align: left;
     font-size:20px;
@@ -33,7 +30,6 @@ body {
     text-align: center;
     font-family:'Bree Serif', serif;
 }
-
 .circle {
     height:150px;
     width:150px;
@@ -42,7 +38,6 @@ body {
     text-shadow: 0 0 3px #000000;
     box-shadow:3px 5px 50px grey;
 }
-
 .startbutton {
     margin-top: 30px;
     padding: 0 50px;

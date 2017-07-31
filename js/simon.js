@@ -4,7 +4,7 @@ $('.tap-target').tapTarget('close');
 /*----- app's state (variables) -----*/
 var simon = [];
 var player = [];
-var lose =true;
+var lose =false;
 var tickTock;
 var score = 0;
 var hiScore = localStorage.getItem("hiScore", score);
@@ -90,8 +90,6 @@ function colorSelect() {
     playerTurn();    
 };
 function playerTurn() {
-    console.log('player = ', player)
-    console.log('simon = ', simon)
     player.forEach(function(colorIdx, index) {
         if (player[index] != simon[index]) { 
             return gameOver();
@@ -140,6 +138,7 @@ function gameOver() {
     loseFlash();
     document.getElementById('start-btn').innerText = 'Again?'
     $("#start-btn").on('click', reInitialize)
+    clearInterval(tickTock)
 }
 function loseFlash() {
     var loseAnimate = 2
@@ -164,10 +163,6 @@ function loseFlash() {
     time1 = 0;
     time2 = 750;
 };
-
-function timesUp() {
-     gameOver();
- }
 
 function disableClick() {
     $('.circle').off('click')
