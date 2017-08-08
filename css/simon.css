@@ -1,5 +1,4 @@
 body {
-    min-width:900px;
     margin: 0 auto;
     background: black;
 }
@@ -45,4 +44,33 @@ body {
 }
 #count {
     text-align: center;
+}
+@media screen and (max-width:800px) {
+    .circle {
+        width: 85px;
+        height:85px;
+    }
+}
+@media screen and (max-width:500px) {
+    .circle{
+        width: 50px;
+        height:50px;
+    }
+    button.start-button {
+        margin:0, auto;
+        padding:0;  
+    }
+    .mobile {
+        margin-bottom: 0px;
+    }
+    .scores {
+        font-size:1em;
+    }
+    h1.title {
+        font-size:3em;
+        padding:0px;
+    }
+    a {
+        font-size: 8px; 
+    }
 }
