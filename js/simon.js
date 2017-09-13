@@ -57,6 +57,7 @@ function simonsTurn() {
     simon.forEach(function(elem, index) {
         setTimeout(function() {
             var audio = document.getElementById(`audio${elem}`);
+            audio.startTime=0;
             audio.play();
             $(`#${elem}`).css({opacity:1}).addClass('pulse')
         }, startTimer)
@@ -83,6 +84,7 @@ function colorSelect() {
     player.push((`${this.id}`));
     $(this).css({opacity: 1});
     audio = document.getElementById(`audio${this.id}`);
+    audio.startTime=0;
     audio.play();
     setTimeout(function() {
         $(".circle").css({opacity: .6})
