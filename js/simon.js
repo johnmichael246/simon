@@ -1,176 +1,185 @@
-/*----- constants -----*/
-$('.tap-target').tapTarget('open');
-$('.tap-target').tapTarget('close');
-/*----- app's state (variables) -----*/
-var simon = [];
-var player = [];
-var lose =false;
-var tickTock;
-var score = 0;
-var hiScore = localStorage.getItem("hiScore", score);
-$('LS').html(hiScore)
-var counter = 1;
-var disable = 750;
-render();
 
+/*----- app's state (variables) -----*/
+let pattern = []
+let playerMoves = []
+let lose = false
+let tickTock = null
+let score = 0
+let hiScore = localStorage.getItem("hiScore", score) || 0
+$('LS').html(hiScore)
+let counter = 1
+let disable = 750
+let scoreWrapper = document.getElementById('score')
+let hiScoreWrapper = document.getElementById('hiScore')
+let countWrapper = document.getElementById('count')
+const $actionButton = $("#start-btn")
+const $playCell = $('.circle')
 /*----- event listeners -----*/  
-$("#start-btn").on('click', countDown)
-$(".circle").on('click', colorSelect)
+$actionButton.on('click', initiateCountDown)
 /*----- functions -----*/
-function reInitialize() {
-    simon = [];
-    player = [];
-    lose = false;
-    score = 0;
-    tickTock;
-    hiScore = localStorage.getItem("hiScore",score)
-    counter = 1;
-    disable = 750;
-    countDown();
-    render();
-};
-function render() {
-    player =[];
-    renderScore();
-    renderCount();
+function reinitializeState() {
+    pattern = []
+    playerMoves = []
+    lose = false
+    score = 0
+    tickTock = null
+    hiScore = localStorage.getItem("hiScore",score) || 0
+    counter = 1
+    disable = 750
+    stopAllTimeouts()
+    initiateCountDown()
+    render()
 }
 
-function renderScore () {
-    document.getElementById('score').innerText = `Score ${score}`;
-    document.getElementById('hiScore').innerText = `High Score ${hiScore}`;
+function render() {
+    playerMoves = []
+    renderScore()
+    renderCount()
+}
+
+function renderScore() {
+    scoreWrapper.innerText = `Score ${score}`
+    hiScoreWrapper.innerText = `High Score ${hiScore}`
 }
 function renderCount() {
-        document.getElementById('count').innerText = `Round ${counter}`;
+    countWrapper.innerText = `Round ${counter}`
 }
 
 function getRandomInt() {
-    var min = 0;
-    var max = 4;
+    const min = 0;
+    const max = 4;
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
-function simonsTurn() {
-    var endTimer = 750;
-    var startTimer = 0;
-    counter += 1;
-    disableClick();
-    simon.push(getRandomInt());
-    simon.forEach(function(elem, index) {
-        setTimeout(function() {
-            var audio = document.getElementById(`audio${elem}`);
-            audio.startTime=0;
-            audio.play();
-            $(`#${elem}`).css({opacity:1}).addClass('pulse')
+function addPattern() {
+    let endTimer = 750
+    let startTimer = 0
+    counter += 1
+    disableClickEvent()
+    pattern.push(getRandomInt())
+    pattern.forEach((elem, index) => {
+        let $playCell = $(`#${elem}`)
+        setTimeout(() => {
+            let audio = document.getElementById(`audio${elem}`)
+            audio.startTime = 0
+            audio.play()
+            $playCell.css({ opacity:1 }).addClass('pulse')
         }, startTimer)
         startTimer +=800;
-        setTimeout(function() {
-            $(`#${elem}`).css({opacity:.6}).removeClass('pulse')
+        setTimeout(() => {
+            $playCell.css({ opacity:.6 }).removeClass('pulse')
         }, endTimer)
         endTimer += 750
-        if (index === simon.length-1) tickTock = setTimeout(timesUp, endTimer + 3000);
+        if (index === pattern.length - 1) tickTock = setTimeout(timesUp, endTimer + 3000)
     })
-    startTimer = 0;
-    endTimer = 750;
+    startTimer = 0
+    endTimer = 750
 }
 
 function timesUp() {
-    gameOver();
+    gameOver()
 }
 
 function colorSelect() {
-    clearTimeout(tickTock);
-    if (lose === true) {
-        return
-    }
-    player.push((`${this.id}`));
-    $(this).css({opacity: 1});
-    audio = document.getElementById(`audio${this.id}`);
-    audio.startTime=0;
-    audio.play();
-    setTimeout(function() {
-        $(".circle").css({opacity: .6})
+    clearTimeout(tickTock)
+    if (lose) return
+    playerMoves.push(this.id)
+    audio = document.getElementById(`audio${this.id}`)
+    audio.startTime = 0
+    audio.play()
+    $(this).css({ opacity: 1 })
+    setTimeout(() => {
+        $playCell.css({ opacity: .6 })
     },750)
-    playerTurn();    
-};
-function playerTurn() {
-    player.forEach(function(colorIdx, index) {
-        if (player[index] != simon[index]) { 
-            return gameOver();
+    playersMove()    
+}
+function playersMove() {
+    playerMoves.forEach((_, index) => {
+        if (playerMoves[index] != pattern[index]) { 
+            return gameOver()
         }
     })
-    if (player.length < simon.length) {
-        tickTock = setTimeout(timesUp, 3000);
-        return;
+    if (playerMoves.length < pattern.length) {
+        tickTock = setTimeout(timesUp, 3000)
+        return
     }
-    if (lose === false) {
-        scoring();
-        render();
-        setTimeout(function() {
-            simonsTurn();
-        }, 1500);
+    if (!lose) {
+        updateScore()
+        render()
+        setTimeout(() => {
+            addPattern()
+        }, 1500)
     }
 };
-function scoring() {
+function updateScore() {
     score += 10
     if (hiScore < score) {
-        hiScore = score;
-        window.localStorage.setItem("hiScore", score);
+        hiScore = score
+        window.localStorage.setItem("hiScore", score)
     }
-};
-function countDown() {
-    var count = 3;
-    $("#start-btn").html("Ready?")
-    var countdown = setInterval(function(){
-        var countSound = document.getElementById('beeper')
-        countSound.play();
-        $("#start-btn").html(count)
-        count -= 1;
+}
+function initiateCountDown() {
+    let count = 3
+    $actionButton.html("Ready?").off('click')
+    let countdown = setInterval(() => {
+        let countSound = document.getElementById('beeper')
+        countSound.play()
+        $actionButton.html(count)
+        count -= 1
         if (count < 0) {
             clearInterval(countdown)
-            $("#start-btn").html("Go")
-            lose = false;
-            renderCount();
-            simonsTurn();
+            $actionButton.html("Go")
+            $playCell.on('click', colorSelect)
+            lose = false
+            renderCount()
+            addPattern()
         }
     },1000)
-    $('#start-btn').off('click');
 };
 function gameOver() {
     lose = true
-    $("circle").off('click');
-    loseFlash();
-    document.getElementById('start-btn').innerText = 'Again?'
-    $("#start-btn").on('click', reInitialize)
+    $playCell.off('click')
+    stopAllTimeouts()
+    loseFlash()
+    document.getElementById('start-btn').innerText = 'Restart'
+    $actionButton.on('click', reinitializeState)
     clearInterval(tickTock)
 }
 function loseFlash() {
-    var loseAnimate = 2
-    time1 = 0;
-    time2 =750;
-    var loseColors = setInterval(function() {
-        setTimeout(function() {
-            var endBeep = document.getElementById("losebeep")
+    let loseAnimationCount = 3
+    startTime = 0
+    endTime = 750
+    let loseColors = setInterval(() => {
+        setTimeout(() => {
+            let endBeep = document.getElementById("losebeep")
             endBeep.play()
-            $(`.circle`).css({opacity:1}).removeClass('scale-in').addClass('scale-out pulse')
-        }, time1)
-        time1 += 800;
-        setTimeout(function() {
-            $(`.circle`).css({opacity:.6}).removeClass('scale-out pulse').addClass('scale-in')
-        }, time2)
-        time2 +=750
-        loseAnimate -= 1;
-        if (loseAnimate < 0) {
+            $playCell.css({opacity:1}).removeClass('scale-in').addClass('scale-out pulse')
+        }, startTime)
+        startTime += 800
+        setTimeout(() => {
+            $playCell.css({opacity:.6}).removeClass('scale-out pulse').addClass('scale-in')
+        }, endTime)
+        endTime += 750
+        loseAnimationCount -= 1
+        if (loseAnimationCount <= 0) {
             clearInterval(loseColors)
         }
     })
-    time1 = 0;
-    time2 = 750;
-};
-
-function disableClick() {
-    $('.circle').off('click')
-    setTimeout(function(){
-        $('.circle').on('click', colorSelect)
-    }, disable)
-    disable += 750;
+    startTime = 0
+    endTime = 750
 }
-/*----- cached element references -----*/
+
+function disableClickEvent() {
+    $playCell.off('click')
+    setTimeout(() => {
+        $playCell.on('click', colorSelect)
+    }, disable)
+    disable += 750
+}
+
+function stopAllTimeouts() {
+    var id = window.setTimeout(null,0)
+    while (id--) {
+        window.clearTimeout(id)
+    }
+}
+render()
